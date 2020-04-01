@@ -104,7 +104,7 @@ public class Queue<E> {
 	}
 	
 	public static void main(String[] args) {
-		Queue<Integer> q = new Queue();
+		Queue<Integer> q = new Queue<>();
 		
 		for (int i=0;i<10; i++) {
 			q.offer(i);

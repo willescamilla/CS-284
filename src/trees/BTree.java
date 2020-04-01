@@ -1,7 +1,5 @@
 package trees;
 
-import queues.Queue;
-
 public class BTree<E> {
 
 	protected static class Node<F>{

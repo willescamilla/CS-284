@@ -1,4 +1,4 @@
-package basics;
+package trees;
 
 public class Pair<E,F> {
 	// data fields
