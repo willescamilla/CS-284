@@ -1,14 +1,14 @@
 package trees;
 
-import trees.Queue;
+import queues.Queue;
 
 public class BTree<E> {
 
-	private static class Node<F>{
+	protected static class Node<F>{
 		// data fields
-		private F data;
-		private Node<F> left;
-		private Node<F> right;
+		protected F data;
+		protected Node<F> left;
+		protected Node<F> right;
 		
 		// Constructors
 		public Node(F data, Node<F> left, Node<F> right) {
@@ -31,8 +31,8 @@ public class BTree<E> {
 		
 	}
 	// Data fields
-	private Node<E> root;
-	private int size;
+	protected Node<E> root;
+	protected int size;
 	
 	
 	// Constructors
@@ -94,6 +94,7 @@ public class BTree<E> {
 		}
 		
 	}
+	
 	/**
 	 * A full binary tree is a binary tree where all nodes have 
 	 * either 2 children or 0 children (the leaf nodes)
@@ -150,65 +151,69 @@ public class BTree<E> {
 	public Boolean is_isomorphic(BTree<E> t2) {
 		return is_isomorphic(root,t2.root);
 	}
-	
 	private StringBuilder toString(Node<E> current, int i) {
-		StringBuilder r = new StringBuilder();
-		for(int j = 0; j < i; j++) {
+		StringBuilder r = new StringBuilder() ;
+		for (int j=0; j<i; j++) {
 			r.append("-");
 		}
 		
-		if(current == null) {
-			r.append("null\n);
-		}else {
+		if (current==null) {
+			r.append("null\n");
+		} else {
 			r.append(current.data.toString()+"\n");
+			r.append(toString(current.left,i+1));
+			r.append(toString(current.right,i+1));
+			
 		}
+		return r;
+		
 	}
 	
-	public String toStting() {
-		return toString(root).troString()
+	public String toString() {
+		return toString(root,0).toString();
 	}
 	
-	public static void main(String[] args) {
-//		BTree<Integer> t1 = new BTree<>(1);
-//		BTree<Integer> t2 = new BTree<>(2,t1,new BTree<>());
+//	public static void main(String[] args) {
+////		BTree<Integer> t1 = new BTree<>(1);
+////		BTree<Integer> t2 = new BTree<>(2,t1,new BTree<>());
+////		
+////		System.out.println(t1.is_balanced());
+////		System.out.println(t2.is_balanced());
+////		
+////		BTree<Integer> t3 = new BTree<>(3, t1, t2);
+////		
+////		System.out.println(t1.is_full());
+////		System.out.println(t2.is_full());
+////		System.out.println(t3.is_full());
 //		
-//		System.out.println(t1.is_balanced());
-//		System.out.println(t2.is_balanced());
+//		BTree<Integer> t10 = new BTree<>(10,new BTree<> (), new BTree<>());
+//		BTree<Integer> t14 = new BTree<>(14,new BTree<> (), new BTree<>());
+//		BTree<Integer> t24 = new BTree<>(24,new BTree<>(), new BTree<>());
+//		BTree<Integer> t12 = new BTree<>(12,t10, t24);
+//		BTree<Integer> t3 = new BTree<>(3,new BTree<> (), new BTree<>());
+//		BTree<Integer> t7 = new BTree<>(7,t3, t12);
 //		
-//		BTree<Integer> t3 = new BTree<>(3, t1, t2);
 //		
-//		System.out.println(t1.is_full());
-//		System.out.println(t2.is_full());
-//		System.out.println(t3.is_full());
-		
-		BTree<Integer> t10 = new BTree<>(10,new BTree<> (), new BTree<>());
-		BTree<Integer> t14 = new BTree<>(14,new BTree<> (), new BTree<>());
-		BTree<Integer> t24 = new BTree<>(24,new BTree<>(), new BTree<>());
-		BTree<Integer> t12 = new BTree<>(12,t10, t24);
-		BTree<Integer> t3 = new BTree<>(3,new BTree<> (), new BTree<>());
-		BTree<Integer> t7 = new BTree<>(7,t3, t12);
-		
-		
-		BTree<Integer> t24i = new BTree<>(24,new BTree<>(),t14);
-		BTree<Integer> t12i = new BTree<>(12,t10, t24i);
-		BTree<Integer> t3i = new BTree<>(9,new BTree<> (), new BTree<>());
-		BTree<Integer> t7i = new BTree<>(7,t12i,t3i);
-		
-		BTree<Integer> s4 = new BTree<>(4,new BTree<>(),new BTree<>());
-		BTree<Integer> s0 = new BTree<>(0,new BTree<>(),new BTree<>());
-		BTree<Integer> s2 = new BTree<>(2,new BTree<>(),new BTree<>());
-		BTree<Integer> s1 = new BTree<>(1,s0,new BTree<>());
-		BTree<Integer> s5 = new BTree<>(5,s4, new BTree<>());
-		BTree<Integer> s3 = new BTree<>(3,s1,s5);
-		
-		BTree<Integer> r3 = new BTree<>(3,new BTree<>(),s4);
-		
-		
-		
-		
-//	    System.out.println(t7.is_isomorphic(t7));
-		
-		System.out.println(r3.is_complete());
-	}
+//		BTree<Integer> t24i = new BTree<>(24,new BTree<>(),t14);
+//		BTree<Integer> t12i = new BTree<>(12,t10, t24i);
+//		BTree<Integer> t3i = new BTree<>(9,new BTree<> (), new BTree<>());
+//		BTree<Integer> t7i = new BTree<>(7,t12i,t3i);
+//		
+//		BTree<Integer> s4 = new BTree<>(4,new BTree<>(),new BTree<>());
+//		BTree<Integer> s0 = new BTree<>(0,new BTree<>(),new BTree<>());
+//		BTree<Integer> s2 = new BTree<>(2,new BTree<>(),new BTree<>());
+//		BTree<Integer> s1 = new BTree<>(1,s0,new BTree<>());
+//		BTree<Integer> s5 = new BTree<>(5,s4, new BTree<>());
+//		BTree<Integer> s3 = new BTree<>(3,s1,s5);
+//		
+//		BTree<Integer> r3 = new BTree<>(3,new BTree<>(),s4);
+//		
+//		
+//		
+//		
+////	    System.out.println(t7.is_isomorphic(t7));
+//		
+//		System.out.println(r3.is_complete());
+//	}
 	
  }
