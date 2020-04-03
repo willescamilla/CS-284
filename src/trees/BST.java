@@ -128,6 +128,32 @@ public class BST<E extends Comparable<E>> extends BTree<E> {
 		root = add(item,root);
 		return item;
 	}
+ 	
+ 	private Node<E> remove(E item, Node<E> current)
+ 	{
+ 		if(current == null) {
+ 			return null;
+ 		}
+ 		else 
+ 		{
+ 			int n = current.data.compareTo(item);
+ 			if( n > 0) {
+ 				current.left = remove(item,current.left);
+ 				return current;
+ 			}
+ 			if(n < 0) {
+ 				current.right = remove(item, current.right);
+ 				return current;
+ 			}
+ 			// Perform case analysis on number of children
+ 			//1. no children
+ 			//2. one child
+ 			//3. two children
+ 			// 3.1 left child has no right child
+ 			// 3.2 left child has right child -> use helper to get(and remove)
+ 			//     inorder predecessor
+ 		}
+ 	}
 	
 	public static void main(String[] args) {
 		BST<Integer> t10 = new BST<>(10,new BST<> (), new BST<>());
