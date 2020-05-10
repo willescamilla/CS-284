@@ -71,7 +71,7 @@ public class BSFamilyTree {
         }
     	
     	//If we get here then we found the right lastname
-    	throw new IllegalStateException("Node already in tree");
+    	throw new IllegalArgumentException("Node already in tree");
     }
 
     /**
@@ -90,7 +90,7 @@ public class BSFamilyTree {
     
     public FamilyTreeNode findNode(FamilyTreeNode node, String lastName) {
     	if(node == null) {
-    		throw new IllegalStateException("Node not in tree");
+    		throw new IllegalArgumentException("Node not in tree");
     	}
     	else if(node.getLastName().compareTo(lastName) < 0) {
         	return findNode(node.right, lastName);
@@ -108,6 +108,10 @@ public class BSFamilyTree {
      * false otherwise.
      */
     public boolean doesNumberExist(String phoneNumber) {
+    	if(root == null) {
+    		return false;
+    	}
+    	
     	FamilyTreeNode temp = root;
     	return findNumber(temp, phoneNumber);
     }
@@ -125,8 +129,32 @@ public class BSFamilyTree {
     		}
     	}
     	
-    	//If we get here then we found the right lastname
-    	return true;
+    	return false;
+    }
+    
+    public boolean doesFamilyMemberExist(String lastName, String firstName) {
+    	if(root == null) {
+    		return false;
+    	}
+    	
+    	FamilyTreeNode temp = root;
+    	return findMember(temp, lastName, firstName);
+    }
+    
+    public boolean findMember(FamilyTreeNode node, String lastName, String firstName) {
+    	if(node.doesFamilyMemberExist(lastName, firstName)) {
+    		return true;
+    	}
+    	else {
+    		if(node.right != null) {
+    			findMember(node.right, lastName, firstName);
+    		}
+    		if(node.left != null) {
+    			findMember(node.left, lastName, firstName);
+    		}
+    	}
+    	
+    	return false;
     }
 
     /**
@@ -139,7 +167,7 @@ public class BSFamilyTree {
     private StringBuilder toString(FamilyTreeNode node, int i) {
 		StringBuilder r = new StringBuilder() ;
 		for (int j=0; j<i; j++) {
-			r.append("-");
+			r.append(" ");
 		}
 		
 		if (node==null) {
@@ -153,24 +181,26 @@ public class BSFamilyTree {
 	}
     
     public static void main(String[] args) {
-    	BSFamilyTree test1 = new BSFamilyTree();
-    	test1.addFamilyTreeNode("Escamilla");
-    	test1.addFamilyTreeNode("Martinez");
-    	test1.addFamilyTreeNode("Duchatelier");
-    	
-    	test1.getFamilyTreeNode("Escamilla").addFamilyMember("Escamilla", "William","6313343068");
-    	test1.getFamilyTreeNode("Escamilla").addFamilyMember("Escamilla", "Bob","6313343068");
-    	test1.getFamilyTreeNode("Escamilla").addFamilyMember("Escamilla", "Jeff","6313343068");
-    	
-    	test1.getFamilyTreeNode("Martinez").addFamilyMember("Martinez", "Sara","6313343068");
-    	test1.getFamilyTreeNode("Martinez").addFamilyMember("Martinez", "John","6313343068");
-    	test1.getFamilyTreeNode("Martinez").addFamilyMember("Martinez", "Andrew","6313343068");
-    	
-    	test1.getFamilyTreeNode("Duchatelier").addFamilyMember("Duchatelier", "Tyrone","6313343068");
-    	test1.getFamilyTreeNode("Duchatelier").addFamilyMember("Duchatelier", "Joseph","6313343068");
-    	test1.getFamilyTreeNode("Duchatelier").addFamilyMember("Duchatelier", "Anthony","6313343068");
-    	
-    	System.out.println(test1);
+//    	BSFamilyTree test1 = new BSFamilyTree();
+//    	test1.addFamilyTreeNode("Escamilla");
+//    	test1.addFamilyTreeNode("Martinez");
+//    	test1.addFamilyTreeNode("Duchatelier");
+//    	
+//    	test1.getFamilyTreeNode("Escamilla").addFamilyMember("Escamilla", "William","6313343068");
+//    	test1.getFamilyTreeNode("Escamilla").addFamilyMember("Escamilla", "Bob","6313343068");
+//    	test1.getFamilyTreeNode("Escamilla").addFamilyMember("Escamilla", "Jeff","6313343068");
+//    	
+//    	test1.getFamilyTreeNode("Martinez").addFamilyMember("Martinez", "Sara","6313343068");
+//    	test1.getFamilyTreeNode("Martinez").addFamilyMember("Martinez", "John","6313343068");
+//    	test1.getFamilyTreeNode("Martinez").addFamilyMember("Martinez", "Andrew","6313343068");
+//    	
+//    	test1.getFamilyTreeNode("Duchatelier").addFamilyMember("Duchatelier", "Tyrone","6313343068");
+//    	test1.getFamilyTreeNode("Duchatelier").addFamilyMember("Duchatelier", "Joseph","6313343068");
+//    	test1.getFamilyTreeNode("Duchatelier").addFamilyMember("Duchatelier", "Anthony","6313343068");
+//    	
+//    	System.out.println(test1.doesNumberExist("6313343068"));
+//    	
+//    	System.out.println(test1);
     	
     }
 }

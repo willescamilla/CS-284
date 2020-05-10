@@ -66,12 +66,13 @@ public class FamilyTreeNode {
 		if(phoneNumber == null || phoneNumber.length() != 10) {
 			throw new IllegalArgumentException("Parameter is invalid.");
 		}
-        	for(Person x: members) {
-        		if(x.getPhoneNumber().equals(phoneNumber)) {
-        			return true;
-        		}
+        for(Person x: members) {
+        	if(x.getPhoneNumber().equals(phoneNumber)) {
+        		return true;
         	}
-        	return false;
+        }
+        
+        return false;
 	}
 
 	/*
@@ -92,6 +93,9 @@ public class FamilyTreeNode {
 		if(person.getLastName() == null || person.getFirstName() == null || person.getPhoneNumber() == null || !person.getLastName().equals(this.lastName)) {
 			throw new IllegalArgumentException("At least one parameter is invalid.");
 		}
+		else if(doesFamilyMemberExist(person.getLastName(), person.getFirstName()) || doesNumberExist(person.getPhoneNumber())) {
+			throw new IllegalArgumentException("Either phone number or family member already exists");
+		}
 		
 		members.add(person);
 	}
@@ -101,14 +105,12 @@ public class FamilyTreeNode {
 	 * number Returns "Does not exist." if not found
 	 */
 	public String getPhoneNumberOfFamilyMember(String lastName, String firstName) {
-		if(lastName == null || firstName == null) {
+		if(lastName == null || firstName == null || !lastName.equals(this.lastName)) {
 			throw new IllegalArgumentException("At least one parameter is invalid.");
 		}
         for(Person x: members) {
         	if(x.getFirstName().equals(firstName)) {
-        		if(x.getLastName().equals(lastName)) {
-        			return x.getPhoneNumber();
-        		}
+        		return x.getPhoneNumber();
         	}
         }
         
