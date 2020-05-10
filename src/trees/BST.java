@@ -107,6 +107,11 @@ public class BST<E extends Comparable<E>> extends BTree<E> {
 		return is_bst(root);
 	}
 	
+	public E add(E item) {
+		root = add(item,root);
+		return item;
+	}
+	
 	private Node<E> add(E item, Node<E> current) {
 		if (current==null) {
 			return new Node<E>(item);
@@ -124,10 +129,6 @@ public class BST<E extends Comparable<E>> extends BTree<E> {
 		}
 	}
 	
- 	public E add(E item) {
-		root = add(item,root);
-		return item;
-	}
  	
  	private E  find_and_remove_io_predecessor(Node<E> current) {
  		if (current.right.right==null) {
