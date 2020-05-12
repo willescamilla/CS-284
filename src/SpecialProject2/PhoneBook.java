@@ -27,6 +27,11 @@ public class PhoneBook {
 	 */
 	public BSFamilyTree getFamilyTree(char letter) {
 		letter = Character.toUpperCase(letter);
+		
+		if((int)letter < 65 || (int)letter > 90) {
+				throw new IllegalArgumentException("Invalid Character");
+		}
+		
 		return directory.get(letter);
 	}
 
@@ -35,7 +40,7 @@ public class PhoneBook {
 	 */
 	public void addFamily(String lastName) {
 		char target = Character.toUpperCase(lastName.charAt(0));
-		directory.get(target).addFamilyTreeNode(lastName);
+		getFamilyTree(target).addFamilyTreeNode(lastName);
 	}
 
 	/*
@@ -44,8 +49,8 @@ public class PhoneBook {
 	 */
 	public void addPerson(String lastName, String firstName, String phoneNumber) {
 		char target = Character.toUpperCase(lastName.charAt(0));
-		if( !(directory.get(target).doesFamilyExist(lastName))) {
-			directory.get(target).addFamilyTreeNode(lastName);
+		if( !(getFamilyTree(target).doesFamilyExist(lastName))) {
+			getFamilyTree(target).addFamilyTreeNode(lastName);
 		}
 		
 		for(int i = 65; i < 91; i++) {
@@ -54,7 +59,7 @@ public class PhoneBook {
 			}
 		}
 		
-		directory.get(target).getFamilyTreeNode(lastName).addFamilyMember(lastName, firstName, phoneNumber);
+		getFamilyTree(target).getFamilyTreeNode(lastName).addFamilyMember(lastName, firstName, phoneNumber);
 	}
 
 	/*
@@ -63,7 +68,7 @@ public class PhoneBook {
 	 */
 	public String getPhoneNumber(String lastName, String firstName) {
 		char target = Character.toUpperCase(lastName.charAt(0));
-		return directory.get(target).getFamilyTreeNode(lastName).getPhoneNumberOfFamilyMember(lastName, firstName);
+		return getFamilyTree(target).getFamilyTreeNode(lastName).getPhoneNumberOfFamilyMember(lastName, firstName);
 	}
 
     	/**
@@ -73,7 +78,7 @@ public class PhoneBook {
     	String temp = "";
     	
     	for(int i = 65; i < 91; i++) {
-    		temp += (char)i + "\n" + directory.get((char)i).toString();
+    		temp += (char)i + "\n" + getFamilyTree((char)i).toString();
     	}
     	
     	return temp;

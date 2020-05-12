@@ -167,7 +167,7 @@ public class BSFamilyTree {
     private StringBuilder toString(FamilyTreeNode node, int i) {
 		StringBuilder r = new StringBuilder() ;
 		for (int j=0; j<i; j++) {
-			r.append(" ");
+			r.append("  ");
 		}
 		
 		if (node==null) {
